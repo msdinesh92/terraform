@@ -1,0 +1,17 @@
+How to create container with blob in terraform
+
+resource "azurerm_storage_container" "contstrg" {
+  name = "dinecont0011"
+  storage_account_name = azurerm_storage_account.strg.name
+  container_access_type = "blob"
+    
+}
+resource "azurerm_storage_blob" "blob01" {
+  name = "strgblob123456"
+  storage_account_name = azurerm_storage_account.strg.name
+  storage_container_name = azurerm_storage_container.contstrg.name
+  type = "Block"
+  source = "files/example.txt"
+
+  
+}
