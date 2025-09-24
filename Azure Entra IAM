@@ -1,0 +1,29 @@
+# how to manage basic IAM (Users & Groups)
+
+terraform {
+  required_providers {
+    azuread = {
+        source = "hashicorp/azuread"
+        version = "~> 2.48.0"
+    }
+  }
+}
+provider "azuread" {}
+
+resource "azuread_user" "user1"{
+user_principal_name = "testuser1@contoso.onmicrosoft.com"
+display_name = "testuser1"
+password = "12345Welcome$"
+
+}
+
+resource "azuread_group" "Developers"{
+    display_name = "developers"
+    security_enabled = "true"
+}
+
+resource "azuread_group_member" "member1" {
+    group_object_id = azuread_group.Developers.id
+    member_object_id = azuread_user.user1.id
+  
+}
